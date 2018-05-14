@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="mewApp">
+<head>
+    <meta charset="utf-8">
+    <title>Musiconomi</title>
+    <link rel="canonical" href="https://musiconomi.com"/>
+    <meta name="description"
+          content="Musiconomi Sign in">
+    <meta name="author" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="css/etherwallet-master.min.css">
+    <script type="text/javascript" src="js/etherwallet-static.min.js"></script>
+    <script type="text/javascript" src="js/etherwallet-master.js"></script>
+    <!--<link rel="apple-touch-icon" sizes="60x60" href="images/fav/apple-touch-icon-60x60.png">-->
+    <!--<link rel="apple-touch-icon" sizes="76x76" href="images/fav/apple-touch-icon-76x76.png">-->
+    <!--<link rel="apple-touch-icon" sizes="120x120" href="images/fav/apple-touch-icon-120x120.png">-->
+    <!--<link rel="apple-touch-icon" sizes="152x152" href="images/fav/apple-touch-icon-152x152.png">-->
+    <!--<link rel="apple-touch-icon" sizes="180x180" href="images/fav/apple-touch-icon-180x180.png">-->
+    <!--<link rel="icon" type="image/png" href="images/fav/favicon-32x32.png" sizes="32x32">-->
+    <!--<link rel="icon" type="image/png" href="images/fav/favicon-194x194.png" sizes="194x194">-->
+    <!--<link rel="icon" type="image/png" href="images/fav/favicon-96x96.png" sizes="96x96">-->
+    <!--<link rel="icon" type="image/png" href="images/fav/android-chrome-192x192.png" sizes="192x192">-->
+    <link rel="icon" type="image/png" href="images/fav/favicon-16x16.png" sizes="16x16">
+    <!--<link rel="manifest" href="images/fav/manifest.json">-->
+    <link rel="shortcut icon" href="images/favicon.ico">
+    <!--<meta name="msapplication-TileColor" content="#2e4868">-->
+    <!--<meta name="msapplication-TileImage" content="images/fav/mstile-144x144.png">-->
+    <!--<meta name="msapplication-config" content="images/fav/browserconfig.xml">-->
+    <meta name="theme-color" content="#2e4868">
+</head>
+<body style="background-color: #eee; background: linear-gradient(33deg, #eeeeee, #dde5ee);">
+<style>
+    .signin-area {
+        width: 400px;
+        max-width: 100vw;
+        background-color: white;
+        box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 3px 1px -2px rgba(0,0,0,0.12), 0 1px 5px 0 rgba(0,0,0,0.2);
+    }
+    .signin-title {
+        padding: 10px 40px;
+    }
+
+    .signin-info {
+        padding: 10px 40px;
+        text-align: center;
+    }
+
+    .signin-info-dark {
+        padding: 10px 40px;
+        text-align: center;
+        background-color: #0e97c0;
+        color: white;
+    }
+
+    .signin-container {
+        width: 100%;
+        margin-right: auto;
+        margin-left: auto;
+        max-width: 113rem;
+        padding: 0 5rem;
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        align-items: center
+    }
+
+    .center {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .signin-msg {
+        color: #005978;
+    }
+
+    /* Progress Bar */
+    .progress {
+        position: relative;
+        height: 2px;
+        display: block;
+        width: 100%;
+        background-color: #ebc29e;
+        border-radius: 2px;
+        background-clip: padding-box;
+        overflow: hidden; }
+    .progress .determinate {
+        position: absolute;
+        background-color: inherit;
+        top: 0;
+        bottom: 0;
+        background-color: #f18a25;
+        transition: width .3s linear; }
+    .progress .indeterminate {
+        background-color: #f18a25; }
+    .progress .indeterminate:before {
+        content: '';
+        position: absolute;
+        background-color: inherit;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        will-change: left, right;
+        -webkit-animation: indeterminate 2.1s cubic-bezier(0.65, 0.815, 0.735, 0.395) infinite;
+        animation: indeterminate 2.1s cubic-bezier(0.65, 0.815, 0.735, 0.395) infinite; }
+    .progress .indeterminate:after {
+        content: '';
+        position: absolute;
+        background-color: inherit;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        will-change: left, right;
+        -webkit-animation: indeterminate-short 2.1s cubic-bezier(0.165, 0.84, 0.44, 1) infinite;
+        animation: indeterminate-short 2.1s cubic-bezier(0.165, 0.84, 0.44, 1) infinite;
+        -webkit-animation-delay: 1.15s;
+        animation-delay: 1.15s; }
+
+    @-webkit-keyframes indeterminate {
+        0% {
+            left: -35%;
+            right: 100%; }
+        60% {
+            left: 100%;
+            right: -90%; }
+        100% {
+            left: 100%;
+            right: -90%; } }
+    @keyframes indeterminate {
+        0% {
+            left: -35%;
+            right: 100%; }
+        60% {
+            left: 100%;
+            right: -90%; }
+        100% {
+            left: 100%;
+            right: -90%; } }
+    @-webkit-keyframes indeterminate-short {
+        0% {
+            left: -200%;
+            right: 100%; }
+        60% {
+            left: 107%;
+            right: -8%; }
+        100% {
+            left: 107%;
+            right: -8%; } }
+    @keyframes indeterminate-short {
+        0% {
+            left: -200%;
+            right: 100%; }
+        60% {
+            left: 107%;
+            right: -8%; }
+        100% {
+            left: 107%;
+            right: -8%; } }
+
+</style>
+<section ng-controller="tabsCtrl" ng-cloak>
+    <section class="signin-container" ng-controller='signMsgCtrl' >
+        <div class="signin-area">
+            <div class="progress" ng-show="signingMsg">
+                <div class="indeterminate"></div>
+            </div>
+            <h2 class="signin-title">
+                <b>Musiconomi</b> - Sign in
+            </h2>
+
+            <div class="signin-info text-muted small">
+                sign in with one of the following
+            </div>
+
+            <div>
+                <wallet-select-drtv></wallet-select-drtv>
+            </div>
+
+            <div class="signin-info-dark text-muted small">After signing in, you will be redirected to {{redirectTo}}</div>
+        </div>
+        <div class="text-center text-muted small" style="margin-top: 5px">Built on top of the great work done by <a target=_blank href="https://www.myetherwallet.com">myetherwallet.com</a></div>
+    </section>
+</section>
+</body>
+</html>
