@@ -336,6 +336,7 @@ var selectWalletCtrl = function($scope, $sce, walletService) {
     }
     $scope.scanLedger = function() {
       $scope.walletType = 'ledger';
+      $scope.setdPath();
         $scope.ledgerError = false;
         $scope.ledger = new Ledger3("w0w");
         var app = new ledgerEth($scope.ledger);
@@ -359,6 +360,7 @@ var selectWalletCtrl = function($scope, $sce, walletService) {
     };
     $scope.scanTrezor = function() {
       $scope.walletType = 'trezor';
+      $scope.setdPath();
         // trezor is using the path without change level id
         var path = $scope.getTrezorPath();
 

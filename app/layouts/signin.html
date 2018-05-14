@@ -169,14 +169,31 @@
                 <b>Musiconomi</b> - Sign in
             </h2>
 
-            <div class="signin-info text-muted small">
+            <div class="signin-info text-muted small" ng-show="!manualSign">
                 sign in with one of the following
             </div>
 
-            <div>
+            <div ng-show="!manualSign">
                 <wallet-select-drtv></wallet-select-drtv>
             </div>
 
+            <div class="text-right" style="padding: 5px; display: flex; flex-direction: column">
+                <div style="display: flex; flex-direction: column; margin-top: 20px" ng-show="manualSign" >
+                    <div class="text-center small">sign the following message and paste the result below</div>
+                    <div class="center small" style="margin: 10px"><code>{{messageToSign}}</code></div>
+                    <textarea style="height: 286px;" ng-model="manuallySignedMessage" placeholder='{
+ "address": "0x...",
+ "msg": "{{messageToSign}}",
+ "sig": "0x...",
+ "version": "3",
+ "signer": "ledger"
+}'></textarea>
+                    <div class="text-right">
+                        <div class="btn btn-info" style="padding: 5px; margin: 5px 0px 0px;" ng-click="submitManuallySignedMessage()">Submit</div>
+                    </div>
+                </div>
+                <div class="small text-muted" ng-click="manualSign=!manualSign" style="cursor: pointer; ">Need to sign another way?</div>
+            </div>
             <div class="signin-info-dark text-muted small">After signing in, you will be redirected to {{redirectTo}}</div>
         </div>
         <div class="text-center text-muted small" style="margin-top: 5px">Built on top of the great work done by <a target=_blank href="https://www.myetherwallet.com">myetherwallet.com</a></div>

@@ -10,6 +10,8 @@ var signMsgCtrl = function ($scope, $sce, walletService) {
   $scope.redirectTo = $scope.referrerDomain + globalFuncs.urlGet("path");
   $scope.messageToSign = globalFuncs.urlGet("msg");
   $scope.signingMsg = false;
+  $scope.manualSign = false;
+  $scope.manuallySignedMessage = "";
 
   if (!$scope.messageToSign) {
     $scope.notifier.danger("The referrer did not provide a message to sign");
@@ -27,25 +29,7 @@ var signMsgCtrl = function ($scope, $sce, walletService) {
     $scope.signingMsg = true;
     $scope.generateSignedMsg($scope.messageToSign,
       function () {
-        $scope.signingMsg = false;
-        var signedObj = JSON.parse($scope.signMsg.signedMsg);
-        var f = document.createElement('form');
-
-        f.action = $scope.redirectTo;
-        f.method = 'POST';
-        f.target = '_top';
-
-        ['address', 'msg', 'sig', 'version', 'signer'].forEach(function (key) {
-          var i = document.createElement('input');
-          i.type = 'hidden';
-          i.name = key;
-          i.value = signedObj[key];
-          f.appendChild(i);
-        });
-
-        document.body.appendChild(f);
-        f.submit();
-
+        $scope.submitSignedMessage();
       },
       function (err) {
         console.log(err);
@@ -60,6 +44,32 @@ var signMsgCtrl = function ($scope, $sce, walletService) {
   $scope.verifyMsg = {
     signedMsg: '',
     status: ''
+  };
+
+  $scope.submitManuallySignedMessage = function() {
+    $scope.signMsg.signedMsg = $scope.manuallySignedMessage;
+    $scope.submitSignedMessage();
+  };
+
+  $scope.submitSignedMessage = function() {
+    var signedObj = JSON.parse($scope.signMsg.signedMsg);
+    $scope.signingMsg = false;
+    var f = document.createElement('form');
+
+    f.action = $scope.redirectTo;
+    f.method = 'POST';
+    f.target = '_top';
+
+    ['address', 'msg', 'sig', 'version', 'signer'].forEach(function (key) {
+      var i = document.createElement('input');
+      i.type = 'hidden';
+      i.name = key;
+      i.value = signedObj[key];
+      f.appendChild(i);
+    });
+
+    document.body.appendChild(f);
+    f.submit();
   }
 
   $scope.generateSignedMsg = function (msgToSign, onSuccess, onFail) {
