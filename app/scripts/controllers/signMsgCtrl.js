@@ -1,5 +1,13 @@
 'use strict';
 var signMsgCtrl = function ($scope, $sce, walletService) {
+
+  var approvedDomains = [
+    "https://musiconomi.com/",
+    "https://alpha.musiconomi.com/",
+    "https://www.musiconomi.com/",
+    "http://localhost:3000/",
+  ];
+
   var getDomainFromUrl = function(url) {
     return url.split('/').slice(0, 3).join('/') + "/";
   };
@@ -12,6 +20,7 @@ var signMsgCtrl = function ($scope, $sce, walletService) {
   $scope.signingMsg = false;
   $scope.manualSign = false;
   $scope.manuallySignedMessage = "";
+  $scope.isApprovedDomain = approvedDomains.includes($scope.referrerDomain);
 
   if (!$scope.messageToSign) {
     $scope.notifier.danger("The referrer did not provide a message to sign");
@@ -52,6 +61,10 @@ var signMsgCtrl = function ($scope, $sce, walletService) {
   };
 
   $scope.submitSignedMessage = function() {
+    if (!$scope.isApprovedDomain) {
+      console.error(`The domain ${$scope.referrerDomain} is not approved`);
+      return;
+    }
     var signedObj = JSON.parse($scope.signMsg.signedMsg);
     $scope.signingMsg = false;
     var f = document.createElement('form');

@@ -1,36 +1,6 @@
 <article class="decrypt-drtv clearfix" ng-controller='selectWalletCtrl as $crtl'>
 
   <!-- Column 1 - Select Type of Key -->
-  <style>
-    .btn-device {
-      width: 100%;
-      padding: 20px 40px;
-      display: flex;
-      min-height: 64px;
-      background-color: white;
-      cursor: pointer;
-    }
-
-    .btn-device:hover {
-      background-color: #eeeeee;
-    }
-
-    .btn-device-text {
-      font-size: 1.5em;
-      color: #555;
-      flex-grow: 1;
-      padding-left: 20px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: flex-start;
-    }
-
-    .device-logo {
-      height: 64px;
-    }
-  </style>
-
   <section style="display: flex; flex-direction: column; align-items: center">
     <div class="form-group form-group-buttons btn-device"
          ng-click="scanMetamask()"
