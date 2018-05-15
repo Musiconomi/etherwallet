@@ -107,6 +107,7 @@ var sendTxCtrl               = require('./controllers/sendTxCtrl');
 var swapCtrl                 = require('./controllers/swapCtrl');
 var signMsgCtrl              = require('./controllers/signMsgCtrl');
 var contractsCtrl            = require('./controllers/contractsCtrl');
+var paymentsCtrl            = require('./controllers/paymentsCtrl');
 var ensCtrl                  = require('./controllers/ensCtrl');
 var domainsaleCtrl           = require('./controllers/domainsaleCtrl');
 var footerCtrl               = require('./controllers/footerCtrl');
@@ -165,6 +166,7 @@ app.controller('sendTxCtrl', ['$scope', '$sce', 'walletService', '$rootScope', s
 app.controller('swapCtrl', ['$scope', '$sce', 'walletService', swapCtrl]);
 app.controller('signMsgCtrl', ['$scope', '$sce', 'walletService', signMsgCtrl]);
 app.controller('contractsCtrl', ['$scope', '$sce', 'walletService', contractsCtrl]);
+app.controller('paymentsCtrl', ['$scope', '$sce', 'walletService', paymentsCtrl]);
 app.controller('ensCtrl', ['$scope', '$sce', 'walletService', ensCtrl]);
 app.controller('domainsaleCtrl', ['$scope', '$sce', 'walletService', domainsaleCtrl]);
 app.controller('footerCtrl', ['$scope', 'globalService', footerCtrl]);

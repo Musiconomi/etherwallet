@@ -1,0 +1,53 @@
+@@include( '../includes/mci-header.tpl')
+
+<section ng-controller="tabsCtrl" ng-cloak>
+    <section class="signin-container" ng-controller='paymentsCtrl' >
+        <div class="signin-area">
+            <div class="progress" ng-show="fetchStatus === 'loading'">
+                <div class="indeterminate"></div>
+            </div>
+            <h2 class="signin-title">
+                <b>Musiconomi</b> - Pay
+            </h2>
+
+            <div class="signin-info text-muted small" ng-show="fetchStatus === 'loading'">
+                Loading payment details
+            </div>
+
+            <div class="signin-info" ng-show="fetchStatus === 'success'">
+                <div class="center">
+                    You are about to pay
+                </div>
+                <div>
+                    <span style="font-size: 3em">{{paymentDetails.approveAmount}}</span>
+                    <span style="font-size: 1.5em;">{{tokenSymbol}}</span>
+                </div>
+                <div class="center">to <a style="padding: 0 5px" href="{{paymentDetails.recipientUrl}}" target="_blank">{{paymentDetails.recipientName}}</a></div>
+            </div>
+
+            <div class="signin-info text-muted small" ng-show="fetchStatus === 'failed'">
+                Failed to find order {{orderId}}
+            </div>
+
+            <div class="center" style="margin-bottom: 20px" ng-show="!confirmedAmount && fetchStatus === 'success'">
+                <button class="btn" ng-click="confirmedAmount=true">Pay now</button>
+            </div>
+
+            <div ng-show="confirmedAmount" style="position: relative">
+                <div class="signin-info text-muted small">
+                    How would you like to pay?
+                </div>
+
+                <div style="position:absolute; width: 100%; height: 100%; cursor: not-allowed; z-index: 2; background-color: rgba(255,255,255,0.8)"
+                     ng-show="!isApprovedDomain || fetchStatus != 'success'"></div>
+                <wallet-select-drtv></wallet-select-drtv>
+            </div>
+
+            <div class="signin-info-dark text-muted small" ng-show="isApprovedDomain">After your payment is confirmed in, you will be redirected to {{redirectTo}}.</div>
+            <div class="signin-info-alert text-muted small" ng-show="!isApprovedDomain">The referring domain {{referrerDomain}} was not expected.</div>
+        </div>
+        <div class="text-center text-muted small" style="margin-top: 5px">Built on top of the great work done by <a target=_blank href="https://www.myetherwallet.com">myetherwallet.com</a></div>
+    </section>
+</section>
+</body>
+</html>
