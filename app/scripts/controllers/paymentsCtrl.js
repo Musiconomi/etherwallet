@@ -22,8 +22,8 @@ var paymentsCtrl = function ($scope, $sce, $http, walletService) {
     selectedFunc: null
   };
 
-  //var paymentGatewayHost = 'https://musiconomi-pay.appspot.com';
-  var paymentGatewayHost = 'http://localhost:3000';
+  var paymentGatewayHost = 'https://musiconomi-pay.appspot.com';
+  // var paymentGatewayHost = 'http://localhost:3000';
   $scope.network = 'ropsten';
   $scope.tokenContractAbi = '[{"constant":false,"inputs":[{"name":"_spender","type":"address"},{"name":"_value","type":"uint256"},{"name":"_extraData","type":"bytes"}],"name":"approveAndCall","outputs":[{"name":"success","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"}]';
   $scope.invoiceId = globalFuncs.urlGet("invoice");
