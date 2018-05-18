@@ -166,7 +166,7 @@ app.controller('sendTxCtrl', ['$scope', '$sce', 'walletService', '$rootScope', s
 app.controller('swapCtrl', ['$scope', '$sce', 'walletService', swapCtrl]);
 app.controller('signMsgCtrl', ['$scope', '$sce', 'walletService', signMsgCtrl]);
 app.controller('contractsCtrl', ['$scope', '$sce', 'walletService', contractsCtrl]);
-app.controller('paymentsCtrl', ['$scope', '$sce', 'walletService', paymentsCtrl]);
+app.controller('paymentsCtrl', ['$scope', '$sce', '$http', 'walletService', paymentsCtrl]);
 app.controller('ensCtrl', ['$scope', '$sce', 'walletService', ensCtrl]);
 app.controller('domainsaleCtrl', ['$scope', '$sce', 'walletService', domainsaleCtrl]);
 app.controller('footerCtrl', ['$scope', 'globalService', footerCtrl]);
