@@ -6,7 +6,23 @@ var signMsgCtrl = function ($scope, $sce, walletService) {
     "https://alpha.musiconomi.com/",
     "https://www.musiconomi.com/",
     "http://localhost:3000/",
+    "https://www.etherchain.org/"
   ];
+
+  $scope.brandName = "Musiconomi";
+  $scope.actionMessage = "Sign in";
+  $scope.actionDetail = "sign in with one of the following";
+  $scope.formAliases = {};
+  $scope.postbackFields = [];
+
+  var branding = {
+    "https://www.etherchain.org/": {
+      brandName: "etherchain.org",
+      actionMessage: "Sign vote",
+      actionDetail: "sign your vote with one of the following",
+      postbackFields: ['yourvote']
+    }
+  };
 
   var getDomainFromUrl = function(url) {
     return url.split('/').slice(0, 3).join('/') + "/";
@@ -15,12 +31,16 @@ var signMsgCtrl = function ($scope, $sce, walletService) {
   walletService.wallet = null;
   $scope.visibility = "signView";
   $scope.referrerDomain = getDomainFromUrl(document.referrer);
+  console.log("$scope.referrerDomain", $scope.referrerDomain);
+
   $scope.redirectTo = $scope.referrerDomain + globalFuncs.urlGet("path");
-  $scope.messageToSign = globalFuncs.urlGet("msg");
+  $scope.messageToSign = globalFuncs.urlGet("msg", true);
   $scope.signingMsg = false;
   $scope.manualSign = false;
   $scope.manuallySignedMessage = "";
   $scope.isApprovedDomain = approvedDomains.includes($scope.referrerDomain);
+
+  Object.assign($scope, branding[$scope.referrerDomain] || {});
 
   if (!$scope.messageToSign) {
     $scope.notifier.danger("The referrer did not provide a message to sign");
@@ -81,9 +101,23 @@ var signMsgCtrl = function ($scope, $sce, walletService) {
       f.appendChild(i);
     });
 
+    var last = document.createElement('textarea');
+    last.name = "signature";
+    last.value = JSON.stringify(signedObj);
+    f.appendChild(last);
+
+    $scope.postbackFields.forEach(function(field) {
+      var postbackValue = globalFuncs.urlGet(field, true);
+      var yv = document.createElement('input');
+      yv.type = 'hidden';
+      yv.name = field;
+      yv.value = postbackValue;
+      f.appendChild(yv);
+    });
+
     document.body.appendChild(f);
     f.submit();
-  }
+  };
 
   $scope.generateSignedMsg = function (msgToSign, onSuccess, onFail) {
     try {
