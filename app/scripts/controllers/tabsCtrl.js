@@ -65,6 +65,18 @@ var tabsCtrl = function($scope, globalService, $translate, $sce) {
       return curNode;
     }
 
+    $scope.changeToNodeType = function(nodeType) {
+      for (var key in nodes.nodeList) {
+          if (nodes.nodeList.hasOwnProperty(key)) {
+             var node = nodes.nodeList[key];
+             if (node.type === nodeType) {
+                 $scope.changeNode(key);
+                 break;
+             }
+          }
+      }
+    };
+
     var networkHasChanged = false;
     $scope.changeNode = function(key) {
         var newNode = makeNewNode(key);

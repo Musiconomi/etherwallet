@@ -1,68 +1,73 @@
 @@include( '../includes/mci-header.tpl')
 
 <section ng-controller="tabsCtrl" ng-cloak>
-    <section class="signin-container" ng-controller='paymentsCtrl' >
-        <div class="signin-area">
-            <div class="corner-ribbon top-right green" ng-show="paymentDetails.paidInFull">Paid</div>
+    <div ng-controller='paymentsCtrl'>
+        <div class="btn btn-warning" ng-click="changeToNodeType(expectedNodeType)" ng-show="nodeType !== expectedNodeType">Click here to switch to the {{expectedNodeType}} network</div>
+        <section class="signin-container" ng-controller='paymentsCtrl' ng-show="nodeType === expectedNodeType">
+            <div class="signin-area">
+                <div class="corner-ribbon top-right green" ng-show="paymentDetails.paidInFull">Paid</div>
 
-            <div class="progress" ng-show="fetchStatus === 'loading' || (txHash && !paymentDetails.paidInFull && !txFailed)">
-                <div class="indeterminate"></div>
-            </div>
-            <h2 class="signin-title">
-                <b>Musiconomi</b> - Pay
-            </h2>
-
-            <div class="signin-info text-muted small" ng-show="fetchStatus === 'loading'">
-                Loading payment details
-            </div>
-
-            <div class="signin-info" ng-show="fetchStatus === 'success'">
-                <div class="center">
-                    {{paymentDetails.paidInFull
-                      ? "You paid"
-                    : paymentDetails.partiallyPaid ? "You still owe" : "You are about to pay"}}
+                <div class="progress" ng-show="fetchStatus === 'loading' || (txHash && !paymentDetails.paidInFull && !txFailed)">
+                    <div class="indeterminate"></div>
                 </div>
-                <div>
-                    <span style="font-size: 3em">{{paymentDetails.paidInFull ? paymentDetails.totalPaid : paymentDetails.approveAmount}}</span>
-                    <span style="font-size: 1.5em;">{{paymentDetails.tokenSymbol}}</span>
+                <h2 class="signin-title">
+                    <b>Musiconomi</b> - Pay
+                </h2>
+
+                <div class="signin-info text-muted small" ng-show="fetchStatus === 'loading'">
+                    Loading payment details
                 </div>
-                <div class="center">to <a style="padding: 0 5px" href="{{paymentDetails.recipientUrl}}" target="_blank">{{paymentDetails.recipientName}}</a></div>
+
+                <div class="signin-info" ng-show="fetchStatus === 'success'">
+                    <div class="center">
+                        {{paymentDetails.paidInFull
+                        ? "You paid"
+                        : paymentDetails.partiallyPaid ? "You still owe" : "You are about to pay"}}
+                    </div>
+                    <div>
+                        <span style="font-size: 3em">{{paymentDetails.paidInFull ? paymentDetails.totalPaid : paymentDetails.approveAmount}}</span>
+                        <span style="font-size: 1.5em;">{{paymentDetails.tokenSymbol}}</span>
+                    </div>
+                    <div class="center">to <a style="padding: 0 5px" href="{{paymentDetails.recipientUrl}}" target="_blank">{{paymentDetails.recipientName}}</a></div>
+                </div>
+
+                <div class="signin-info small text-danger" ng-show="fetchStatus === 'failed'">
+                    Failed to find invoice <br> {{invoiceId}}
+                </div>
+
+                <div style="position: relative" ng-show="!paymentDetails.paidInFull && !txHash">
+                    <div style="position:absolute; width: 100%; height: 100%; cursor: not-allowed; z-index: 2; background-color: rgba(255,255,255,0.8)"
+                         ng-show="!isApprovedDomain || fetchStatus != 'success'"></div>
+
+                    <div class="signin-info text-muted small">
+                        How would you like to pay?
+                    </div>
+                    <wallet-select-drtv></wallet-select-drtv>
+                </div>
+
+                <!--<a href="{{txLink}}" target="_blank">your transaction</a>-->
+                <div ng-show="txHash" class="center" style="margin-bottom: 20px">
+                    <div class="small text-muted" ng-show="!waitingForConfirmations && !paymentDetails.paidInFull && !txFailed">
+                        submitting payment to the network ...
+                    </div>
+                    <div class="small text-muted" ng-show="waitingForConfirmations && !paymentDetails.paidInFull && txConfirmations < paymentDetails.requiredConfirmations">
+                        {{txConfirmations}} of {{paymentDetails.requiredConfirmations}} confirmations ...
+                    </div>
+                    <div class="small text-muted" ng-show="waitingForConfirmations && !paymentDetails.paidInFull && txConfirmations >= paymentDetails.requiredConfirmations">
+                        finalizing transaction ...
+                    </div>
+                    <div ng-show="paymentDetails.paidInFull">View <a href="{{txLink}}" target="_blank">your transaction</a></div>
+                    <div ng-show="txFailed"><a href="{{txLink}}" target="_blank">Your transaction</a> failed. <a onclick="window.location.reload(true)">Retry</a> </div>
+                </div>
+
+                <div class="signin-info-dark text-muted small" ng-show="!paymentDetails.paidInFull && isApprovedDomain && paymentDetails.successUrl">
+                    After your payment is confirmed in, you will be redirected to {{paymentDetails.successUrl}}.
+                </div>
+                <div class="signin-info-alert text-muted small" ng-show="!paymentDetails.paidInFull && !isApprovedDomain">The referring domain {{referrerDomain}} was not expected.</div>
             </div>
-
-            <div class="signin-info text-muted small" ng-show="fetchStatus === 'failed'">
-                Failed to find order {{invoiceId}}
-            </div>
-
-            <div style="position: relative" ng-show="!paymentDetails.paidInFull && !txHash">
-                <div style="position:absolute; width: 100%; height: 100%; cursor: not-allowed; z-index: 2; background-color: rgba(255,255,255,0.8)"
-                     ng-show="!isApprovedDomain || fetchStatus != 'success'"></div>
-
-                <div class="signin-info text-muted small">
-                    How would you like to pay?
-                </div>
-                <wallet-select-drtv></wallet-select-drtv>
-            </div>
-
-            <!--<a href="{{txLink}}" target="_blank">your transaction</a>-->
-            <div ng-show="txHash" class="center" style="margin-bottom: 20px">
-                <div class="small text-muted" ng-show="!waitingForConfirmations && !paymentDetails.paidInFull && !txFailed">
-                    submitting payment to the network ...
-                </div>
-                <div class="small text-muted" ng-show="waitingForConfirmations && !paymentDetails.paidInFull && txConfirmations < paymentDetails.requiredConfirmations">
-                    {{txConfirmations}} of {{paymentDetails.requiredConfirmations}} confirmations ...
-                </div>
-                <div class="small text-muted" ng-show="waitingForConfirmations && !paymentDetails.paidInFull && txConfirmations >= paymentDetails.requiredConfirmations">
-                    finalizing transaction ...
-                </div>
-                <div ng-show="paymentDetails.paidInFull">View <a href="{{txLink}}" target="_blank">your transaction</a></div>
-                <div ng-show="txFailed"><a href="{{txLink}}" target="_blank">Your transaction</a> failed. <a onclick="window.location.reload(true)">Retry</a> </div>
-            </div>
-
-            <div class="signin-info-dark text-muted small" ng-show="!paymentDetails.paidInFull && isApprovedDomain && paymentDetails.successUrl">After your payment is confirmed in, you will be redirected to {{paymentDetails.successUrl}}.</div>
-            <div class="signin-info-alert text-muted small" ng-show="!paymentDetails.paidInFull && !isApprovedDomain">The referring domain {{referrerDomain}} was not expected.</div>
-        </div>
-        <div class="text-center text-muted small" style="margin-top: 5px">Built on top of the great work done by <a target=_blank href="https://www.myetherwallet.com">myetherwallet.com</a></div>
-    </section>
+            <div class="text-center text-muted small" style="margin-top: 5px">Built on top of the great work done by <a target=_blank href="https://www.myetherwallet.com">myetherwallet.com</a></div>
+        </section>
+    </div>
 </section>
 </body>
 </html>

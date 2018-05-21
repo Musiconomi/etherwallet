@@ -22,9 +22,27 @@ var paymentsCtrl = function ($scope, $sce, $http, walletService) {
     selectedFunc: null
   };
 
-  var paymentGatewayHost = 'https://musiconomi-pay.appspot.com';
-  // var paymentGatewayHost = 'http://localhost:3000';
-  $scope.network = 'ropsten';
+  var getDomainFromUrl = function(url) {
+    return url.split('/').slice(0, 3).join('/') + "/";
+  };
+
+  var currentDomain = getDomainFromUrl(window.location.href);
+  console.log("Current domain: " + currentDomain);
+  $scope.expectedNodeType = currentDomain === "https://musiconomi.com/" || currentDomain === "https://www.musiconomi.com/"
+    ? nodes.nodeTypes.ETH
+    : nodes.nodeTypes.Ropsten;
+
+  if ($scope.expectedNodeType === nodes.nodeTypes.Ropsten) {
+    $scope.paymentGatewayHost = 'https://dev-musiconomi-pay.appspot.com';
+    $scope.expectedNodeType = nodes.nodeTypes.Ropsten;
+    $scope.network = 'ropsten';
+  }
+  else {
+    $scope.paymentGatewayHost = 'https://musiconomi-pay.appspot.com';
+    $scope.expectedNodeType = nodes.nodeTypes.ETH;
+    $scope.network = 'mainnet';
+  }
+
   $scope.tokenContractAbi = '[{"constant":false,"inputs":[{"name":"_spender","type":"address"},{"name":"_value","type":"uint256"},{"name":"_extraData","type":"bytes"}],"name":"approveAndCall","outputs":[{"name":"success","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"}]';
   $scope.invoiceId = globalFuncs.urlGet("invoice");
 
@@ -33,7 +51,7 @@ var paymentsCtrl = function ($scope, $sce, $http, walletService) {
 
   var getPaymentDetails = function(invoiceId, callback) {
     // Get the details for this invoice
-    $http.get(`${paymentGatewayHost}/invoice/${invoiceId}`)
+    $http.get(`${$scope.paymentGatewayHost}/invoice/${invoiceId}`)
       .then(function(response) {
         var orderInfo = response.data;
         var successUrl = (orderInfo.merchant.successUrl || orderInfo.merchant.website).replace("[[invoiceId]]", invoiceId);
@@ -58,6 +76,9 @@ var paymentsCtrl = function ($scope, $sce, $http, walletService) {
           successUrl, failureUrl, detailsUrl
         });
         if (!$scope.$$phase) $scope.$apply();
+      })
+      .catch(function(err) {
+        callback(err);
       })
   };
 
