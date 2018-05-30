@@ -164,9 +164,10 @@ globalFuncs.donateAddress = "0xDECAF9CD2367cdbb726E904cD6397eDFcAe6068D";
 globalFuncs.isNumeric = function(n) {
     return !isNaN(parseFloat(n)) && isFinite(n);
 };
-globalFuncs.urlGet = function(name) {
+globalFuncs.urlGet = function(name, doNotLowercaseValues) {
     name = name.toLowerCase();
-    if (name = (new RegExp('[?&]' + encodeURIComponent(name) + '=([^&]*)')).exec(location.search.toLowerCase())) return this.stripTags(decodeURIComponent(name[1]));
+    var loc = doNotLowercaseValues ?location.search : location.search.toLowerCase();
+    if (name = (new RegExp('[?&]' + encodeURIComponent(name) + '=([^&]*)')).exec(loc)) return this.stripTags(decodeURIComponent(name[1]));
 };
 globalFuncs.stripTags = function(str) {
     return xssFilters.inHTMLData(str);
