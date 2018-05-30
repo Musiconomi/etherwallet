@@ -73,6 +73,7 @@ var paymentsCtrl = function ($scope, $sce, $http, walletService) {
           transactions: orderInfo.transactions,
           requiredGas: 125450,
           paidInFull: orderInfo.paidInFull,
+          canceled: orderInfo.deleted,
           successUrl, failureUrl, detailsUrl
         });
         if (!$scope.$$phase) $scope.$apply();
@@ -249,7 +250,7 @@ var paymentsCtrl = function ($scope, $sce, $http, walletService) {
         $scope.notifier.success(globalFuncs.successMsgs[2] + "<br />" + resp.data + "<br />");
         if (cb) cb(null, $scope.txHash);
       } else {
-        consle.log(resp.error);
+        console.log(resp.error);
         $scope.notifier.danger(resp.error);
         if (cb) cb(resp.error, null);
       }

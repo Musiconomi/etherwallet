@@ -57,7 +57,7 @@ function notifyFunc(msg) {
 
 
 // HTML / TPL Pages
-let htmlFiles = app + 'layouts/*.html';
+let htmlFiles = [app + 'layouts/signin.html', app + 'layouts/payments.html'];// app + 'layouts/*.html';
 let tplFiles = app + 'includes/*.tpl';
 
 gulp.task('html', function(done) {

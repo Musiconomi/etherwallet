@@ -3,7 +3,7 @@
 <section ng-controller="tabsCtrl" ng-cloak>
     <div ng-controller='paymentsCtrl'>
         <div class="btn btn-warning" ng-click="changeToNodeType(expectedNodeType)" ng-show="nodeType !== expectedNodeType">Click here to switch to the {{expectedNodeType}} network</div>
-        <section class="signin-container" ng-controller='paymentsCtrl' ng-show="nodeType === expectedNodeType">
+        <section class="signin-container" ng-show="nodeType === expectedNodeType">
             <div class="signin-area">
                 <div class="corner-ribbon top-right green" ng-show="paymentDetails.paidInFull">Paid</div>
 
@@ -18,7 +18,7 @@
                     Loading payment details
                 </div>
 
-                <div class="signin-info" ng-show="fetchStatus === 'success'">
+                <div class="signin-info" ng-show="fetchStatus === 'success' && !paymentDetails.canceled">
                     <div class="center">
                         {{paymentDetails.paidInFull
                         ? "You paid"
@@ -31,11 +31,15 @@
                     <div class="center">to <a style="padding: 0 5px" href="{{paymentDetails.recipientUrl}}" target="_blank">{{paymentDetails.recipientName}}</a></div>
                 </div>
 
+                <div class="signin-info small text-danger" ng-show="fetchStatus === 'success' && paymentDetails.canceled">
+                    This order has been canceled.
+                </div>
+
                 <div class="signin-info small text-danger" ng-show="fetchStatus === 'failed'">
                     Failed to find invoice <br> {{invoiceId}}
                 </div>
 
-                <div style="position: relative" ng-show="!paymentDetails.paidInFull && !txHash">
+                <div style="position: relative" ng-show="!paymentDetails.paidInFull && !txHash && !paymentDetails.canceled">
                     <div style="position:absolute; width: 100%; height: 100%; cursor: not-allowed; z-index: 2; background-color: rgba(255,255,255,0.8)"
                          ng-show="!isApprovedDomain || fetchStatus != 'success'"></div>
 
@@ -60,8 +64,8 @@
                     <div ng-show="txFailed"><a href="{{txLink}}" target="_blank">Your transaction</a> failed. <a onclick="window.location.reload(true)">Retry</a> </div>
                 </div>
 
-                <div class="signin-info-dark text-muted small" ng-show="!paymentDetails.paidInFull && isApprovedDomain && paymentDetails.successUrl">
-                    After your payment is confirmed in, you will be redirected to {{paymentDetails.successUrl}}.
+                <div class="signin-info-dark text-muted small" ng-show="!paymentDetails.paidInFull && isApprovedDomain && paymentDetails.successUrl && !paymentDetails.canceled">
+                    After your payment is confirmed, you will be redirected to {{paymentDetails.successUrl}}
                 </div>
                 <div class="signin-info-alert text-muted small" ng-show="!paymentDetails.paidInFull && !isApprovedDomain">The referring domain {{referrerDomain}} was not expected.</div>
             </div>
