@@ -41,7 +41,16 @@ var selectWalletCtrl = function($scope, $sce, walletService) {
     if ($scope.metamaskAvailable) {
       window.web3.eth.getAccounts(function (err, accounts) {
         if (err) $scope.metamaskAvailableLoggedIn = "error";
-        else $scope.metamaskAvailableLoggedIn = accounts.length === 0 ? "login" : "ok";
+        else {
+            window.web3.version.getNetwork((err, netId) => {
+              if ($scope.ajaxReq.chainId == netId) {
+                $scope.metamaskAvailableLoggedIn = accounts.length === 0 ? "login" : "ok";
+              }
+              else {
+                $scope.metamaskAvailableLoggedIn = "network";
+              }
+            });
+        }
       })
     }
 

@@ -3,14 +3,15 @@
   <!-- Column 1 - Select Type of Key -->
   <section style="display: flex; flex-direction: column; align-items: center">
     <div class="form-group form-group-buttons btn-device"
-         ng-click="scanMetamask()"
+         ng-class="{disabled: metamaskAvailableLoggedIn !== 'ok'}"
+         ng-click="metamaskAvailableLoggedIn === 'ok' ? scanMetamask() : console.log('metamask option disabled')"
     >
       <div class="center device-logo" style="width: 64px">
         <img src="images/metamask.svg" height="auto" class="device-logo">
       </div>
 
       <div class="btn-device-text">
-        <div>Metamask</div>
+        <div class="device-name">Metamask</div>
         <div class="text-muted"
              ng-show="walletType=='metamask'"
              style="font-size: 0.75em">Check Metamask
@@ -22,7 +23,12 @@
 
         <div class="text-muted"
              ng-show="metamaskAvailable && metamaskAvailableLoggedIn === 'login'"
-             style="font-size: 0.75em">Log in to Metmask
+             style="font-size: 0.75em">Log in to Metamask
+        </div>
+
+        <div class="text-muted"
+             ng-show="metamaskAvailable && metamaskAvailableLoggedIn === 'network'"
+             style="font-size: 0.6em">Change Metamask network to <BR> {{nodeType}}
         </div>
       </div>
     </div>
