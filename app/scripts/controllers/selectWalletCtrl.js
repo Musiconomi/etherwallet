@@ -40,7 +40,10 @@ var selectWalletCtrl = function($scope, $sce, walletService) {
     $scope.metamaskAvailableLoggedIn = "checking";
     if ($scope.metamaskAvailable) {
       window.web3.eth.getAccounts(function (err, accounts) {
-        if (err) $scope.metamaskAvailableLoggedIn = "error";
+        if (err) {
+            $scope.metamaskAvailableLoggedIn = "error";
+            if (!$scope.$$phase) $scope.$apply();
+        }
         else {
             window.web3.version.getNetwork((err, netId) => {
               if ($scope.ajaxReq.chainId == netId) {
@@ -49,6 +52,7 @@ var selectWalletCtrl = function($scope, $sce, walletService) {
               else {
                 $scope.metamaskAvailableLoggedIn = "network";
               }
+              if (!$scope.$$phase) $scope.$apply();
             });
         }
       })
