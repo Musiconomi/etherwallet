@@ -4,6 +4,7 @@ var signMsgCtrl = function ($scope, $sce, walletService) {
   var approvedDomains = [
     "https://musiconomi.com/",
     "https://alpha.musiconomi.com/",
+    "https://chat.musiconomi.com/",
     "https://www.musiconomi.com/",
     "http://localhost:3000/",
     "https://www.etherchain.org/"
@@ -14,6 +15,12 @@ var signMsgCtrl = function ($scope, $sce, walletService) {
   $scope.actionDetail = "sign in with one of the following";
   $scope.formAliases = {};
   $scope.postbackFields = [];
+
+  var signAction = globalFuncs.urlGet("action");
+  if (signAction === "vote") {
+    $scope.actionMessage = "Vote";
+    $scope.actionDetail = "sign your vote with one of the following";
+  }
 
   var branding = {
     "https://www.etherchain.org/": {
