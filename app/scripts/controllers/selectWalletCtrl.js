@@ -36,7 +36,7 @@ var selectWalletCtrl = function($scope, $sce, walletService) {
         $scope.nodeType = $scope.ajaxReq.type;
         $scope.setdPath();
     });
-    $scope.metamaskAvailable = window.web3 && window.web3.currentProvider && !!window.web3.currentProvider.isMetaMask;
+    $scope.metamaskAvailable = window.web3 && window.web3.currentProvider;// && !!window.web3.currentProvider.isMetaMask;
     $scope.metamaskAvailableLoggedIn = "checking";
     if ($scope.metamaskAvailable) {
       window.web3.eth.getAccounts(function (err, accounts) {
