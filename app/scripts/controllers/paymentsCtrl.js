@@ -28,9 +28,11 @@ var paymentsCtrl = function ($scope, $sce, $http, walletService) {
 
   var currentDomain = getDomainFromUrl(window.location.href);
   console.log("Current domain: " + currentDomain);
-  $scope.expectedNodeType = currentDomain === "https://musiconomi.com/" || currentDomain === "https://www.musiconomi.com/"
-    ? nodes.nodeTypes.ETH
-    : nodes.nodeTypes.Ropsten;
+  // $scope.expectedNodeType = currentDomain === "https://musiconomi.com/" || currentDomain === "https://www.musiconomi.com/"
+  //   ? nodes.nodeTypes.ETH
+  //   : nodes.nodeTypes.Ropsten;
+
+  $scope.expectedNodeType = nodes.nodeTypes.ETH;
 
   if ($scope.expectedNodeType === nodes.nodeTypes.Ropsten) {
     $scope.paymentGatewayHost = 'https://dev-musiconomi-pay.appspot.com';
