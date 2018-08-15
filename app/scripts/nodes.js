@@ -6,11 +6,9 @@ nodes.metamaskNode = require('./nodeHelpers/metamask');
 nodes.nodeTypes = {
     ETH: "ETH",
     ETC: "ETC",
-    MUS: "MUSIC",
     Ropsten: "ROPSTEN ETH",
     Kovan: "KOVAN ETH",
     Rinkeby: "RINKEBY ETH",
-    RSK: "RSK",
     EXP: "EXP",
     UBQ: "UBQ",
     POA: "POA",
@@ -19,8 +17,13 @@ nodes.nodeTypes = {
     ETSC: "ETSC",
     EGEM: "EGEM",
     CLO: "CLO",
-    CLOT: "Testnet CLO",
-    EAST: "EAST",
+    MUSIC: "MUSIC",
+    GO: "GO",
+    EOSC: "EOSC",
+    AKROMA: "AKROMA",
+    ESN: "ESN",
+    PIRL: "PIRL",
+    ETHO: "ETHO",
     Custom: "CUSTOM ETH"
 };
 nodes.ensNodeTypes = [nodes.nodeTypes.ETH, nodes.nodeTypes.Ropsten];
@@ -48,8 +51,8 @@ nodes.nodeList = {
         'chainId': 1,
         'tokenList': require('./tokens/ethTokens.json'),
         'abiList': require('./abiDefinitions/ethAbi.json'),
-        'service': 'myetherapi.com',
-        'lib': new nodes.customNode('https://api.myetherapi.com/eth', '')
+        'service': 'myetherwallet.com',
+        'lib': new nodes.customNode('https://api.myetherwallet.com/eth', '')
     },
     'eth_ethscan': {
         'name': 'ETH',
@@ -120,8 +123,8 @@ nodes.nodeList = {
         'chainId': 3,
         'tokenList': require('./tokens/ropstenTokens.json'),
         'abiList': require('./abiDefinitions/ropstenAbi.json'),
-        'service': 'myetherapi.com',
-        'lib': new nodes.customNode('https://api.myetherapi.com/rop', '')
+        'service': 'myetherwallet.com',
+        'lib': new nodes.customNode('https://api.myetherwallet.com/rop', '')
     },
     'rop_infura': {
         'name': 'Ropsten',
@@ -211,16 +214,16 @@ nodes.nodeList = {
     },
     'poa': {
         'name': 'POA',
-        'blockExplorerTX': 'https://core-explorer.poa.network/tx/[[txHash]]',
-        'blockExplorerAddr': 'https://core-explorer.poa.network/account/[[address]]',
+        'blockExplorerTX': 'https://poaexplorer.com/tx/[[txHash]]',
+        'blockExplorerAddr': 'https://poaexplorer.com/address/[[address]]',
         'type': nodes.nodeTypes.POA,
         'eip155': true,
         'chainId': 99,
         'tokenList': require('./tokens/poaTokens.json'),
         'abiList': require('./abiDefinitions/poaAbi.json'),
         'estimateGas': true,
-        'service': 'core.poa.network',
-        'lib': new nodes.customNode('https://core.poa.network', '')
+        'service': 'poa.infura.io',
+        'lib': new nodes.infuraNode('https://poa.infura.io')
     },
     'tomo': {
         'name': 'TOMO',
@@ -258,7 +261,7 @@ nodes.nodeList = {
         'tokenList': require('./tokens/etscTokens.json'),
         'abiList': require('./abiDefinitions/etscAbi.json'),
         'estimateGas': true,
-        'service': 'gazua.tv',
+        'service': 'ethereumsocial.kr',
         'lib': new nodes.customNode('https://node.ethereumsocial.kr', '')
     },
     'egem': {
@@ -274,10 +277,10 @@ nodes.nodeList = {
         'service': 'egem.io',
         'lib': new nodes.customNode('https://jsonrpc.egem.io/custom', '')
     },
-    'clo_mainnet': {
+    'clo': {
         'name': 'CLO',
-        'blockExplorerTX': 'https://explorer.callisto.network/tx/[[txHash]]',
-        'blockExplorerAddr': 'https://explorer.callisto.network/addr/[[address]]',
+        'blockExplorerTX': 'https://cloexplorer.org/tx/[[txHash]]',
+        'blockExplorerAddr': 'https://cloexplorer.org/addr/[[address]]',
         'type': nodes.nodeTypes.CLO,
         'eip155': true,
         'chainId': 820,
@@ -286,30 +289,96 @@ nodes.nodeList = {
         'service': 'Callisto.network',
         'lib': new nodes.customNode('https://clo-geth.0xinfra.com/', '')
     },
-    'clo_testnet3': {
-        'name': 'CLO Testnet 3.0',
-        'blockExplorerTX': 'https://explorer-testnet.callisto.network/tx/[[txHash]]',
-        'blockExplorerAddr': 'https://explorer-testnet.callisto.network/addr/[[address]]',
-        'type': nodes.nodeTypes.CLOT,
+    'music': {
+        'name': 'MUSIC',
+        'blockExplorerTX': 'https://explorer.musicoin.org/tx/[[txHash]]',
+        'blockExplorerAddr': 'https://explorer.musicoin.org/account/[[address]]',
+        'type': nodes.nodeTypes.MUSIC,
         'eip155': true,
-        'chainId': 7919,
-        'tokenList': require('./tokens/cloTokens.json'),
-        'abiList': require('./abiDefinitions/cloAbi.json'),
-        'service': 'Callisto.network',
-        'lib': new nodes.customNode('https://clo-testnet3.0xinfra.com/', '')
-    },
-    'east': {
-        'name': 'EAST',
-        'blockExplorerTX': 'https://explorer.easthub.io/tx/[[txHash]]',
-        'blockExplorerAddr': 'https://explorer.easthub.io/addr/[[address]]',
-        'type': nodes.nodeTypes.EAST,
-        'eip155': true,
-        'chainId': 7,
-        'tokenList': require('./tokens/eastTokens.json'),
-        'abiList': require('./abiDefinitions/eastAbi.json'),
+        'chainId': 7762959,
+        'tokenList': require('./tokens/musicTokens.json'),
+        'abiList': require('./abiDefinitions/musicAbi.json'),
         'estimateGas': true,
-        'service': 'easthub.io',
-        'lib': new nodes.customNode('https://node.easthub.io', '')
+        'service': 'musicoin.org',
+        'lib': new nodes.customNode('https://mcdnode.trustfarm.io/api', '')
+    },
+    'go': {
+        'name': 'GO',
+        'blockExplorerTX': 'https://explorer.gochain.io/tx/[[txHash]]',
+        'blockExplorerAddr': 'https://explorer.gochain.io/addr/[[address]]',
+        'type': nodes.nodeTypes.GO,
+        'eip155': true,
+        'chainId': 60,
+        'tokenList': require('./tokens/goTokens.json'),
+        'abiList': require('./abiDefinitions/goAbi.json'),
+        'estimateGas': true,
+        'service': 'gochain.io',
+        'lib': new nodes.customNode('https://rpc.gochain.io', '')
+    },
+    'eosc': {
+        'name': 'EOSC',
+        'blockExplorerTX': 'https://explorer.eos-classic.io/tx/[[txHash]]',
+        'blockExplorerAddr': 'https://explorer.eos-classic.io/addr/[[address]]',
+        'type': nodes.nodeTypes.EOSC,
+        'eip155': true,
+        'chainId': 20,
+        'tokenList': require('./tokens/eoscTokens.json'),
+        'abiList': require('./abiDefinitions/eoscAbi.json'),
+        'estimateGas': true,
+        'service': 'eos-classic.io',
+        'lib': new nodes.customNode('https://node.eos-classic.io', '')
+    },
+    'akroma': {
+        'name': 'AKA',
+        'blockExplorerTX': 'https://akroma.io/explorer/transaction/[[txHash]]',
+        'blockExplorerAddr': 'https://akroma.io/explorer/address/[[address]]',
+        'type': nodes.nodeTypes.AKROMA,
+        'eip155': true,
+        'chainId': 200625,
+        'tokenList': require('./tokens/akromaTokens.json'),
+        'abiList': require('./abiDefinitions/akromaAbi.json'),
+        'estimateGas': true,
+        'service': 'akroma.io',
+        'lib': new nodes.customNode('https://rpc.akroma.io', '')
+    },
+    'esn': {
+        'name': 'ESN',
+        'blockExplorerTX': 'https://ethersocial.net/tx/[[txHash]]',
+        'blockExplorerAddr': 'https://ethersocial.net/addr/[[address]]',
+        'type': nodes.nodeTypes.ESN,
+        'eip155': true,
+        'chainId': 31102,
+        'tokenList': require('./tokens/esnTokens.json'),
+        'abiList': require('./abiDefinitions/esnAbi.json'),
+        'estimateGas': true,
+        'service': 'ethersocial.org',
+        'lib': new nodes.customNode('https://api.esn.gonspool.com', '')
+    },
+    'pirl': {
+        'name': 'PIRL',
+        'blockExplorerTX': 'https://poseidon.pirl.io/explorer/transaction/[[txHash]]',
+        'blockExplorerAddr': 'https://poseidon.pirl.io/explorer/address/[[address]]',
+        'type': nodes.nodeTypes.PIRL,
+        'eip155': true,
+        'chainId': 3125659152,
+        'tokenList': require('./tokens/pirlTokens.json'),
+        'abiList': require('./abiDefinitions/pirlAbi.json'),
+        'estimateGas': true,
+        'service': 'pirl.io',
+        'lib': new nodes.customNode('https://wallrpc.pirl.io', '')
+    },
+    'etho': {
+        'name': 'ETHO',
+        'blockExplorerTX': 'https://explorer.ether1.org/tx/[[txHash]]',
+        'blockExplorerAddr': 'https://explorer.ether1.org/addr/[[address]]',
+        'type': nodes.nodeTypes.ETHO,
+        'eip155': true,
+        'chainId': 1313114,
+        'tokenList': require('./tokens/ethoTokens.json'),
+        'abiList': require('./abiDefinitions/ethoAbi.json'),
+        'estimateGas': true,
+        'service': 'ether1.org',
+        'lib': new nodes.customNode('https://rpc.ether1.org', '')
     }
 };
 

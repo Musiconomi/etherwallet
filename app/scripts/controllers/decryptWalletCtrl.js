@@ -26,9 +26,17 @@ var decryptWalletCtrl = function($scope, $sce, walletService) {
         hwUbqPath:         "m/44'/108'/0'/0",      // first address: m/44'/40'/0'/0/0
         hwExpansePath:     "m/44'/40'/0'/0",       // first address: m/44'/40'/0'/0/0
         hwEllaismPath:     "m/44'/163'/0'/0",      // first address: m/44'/163'/0'/0/0
+        hwPirlPath:        "m/44'/164'/0'/0",      // first address: m/44'/164'/0'/0/0
         hwEtherGemPath:    "m/44'/1987'/0'/0",     // first address: m/44'/1987'/0'/0/0
+        hwCallistoPath:    "m/44'/820'/0'/0",      // first address: m/44'/820'/0'/0/0
+        hwSocialPath:      "m/44'/1128'/0'/0",     // first address: m/44'/1128'/0'/0/0
+        hwMusicoinPath:    "m/44'/184'/0'/0",      // first address: m/44'/184'/0'/0/0
         singularDTVPath:   "m/0'/0'/0'",           // first address: m/0'/0'/0'/0
-        hwRskPath:         "m/44'/137'/0'/0",      // first address : m/44'/137'/0'/0/0
+        goPath:            "m/44'/6060'/0'/0",     // first address: m/44'/6060'/0'/0/0
+        hwEOSClassicPath:  "m/44'/2018'/0'/0",     // first address: m/44'/2018'/0'/0/0
+        hwAkromaPath:      "m/44'/200625'/0'/0",   // first address: m/44'/200625'/0'/0/0
+        hwESNetworkPath:   "m/44'/31102'/0'/0",    // first address: m/44'/31102'/0'/0/0
+        hwEther1Path:      "m/44'/1313114'/0'/0",  // first address: m/44'/1313114'/0'/0/0
     };
     $scope.HDWallet.dPath = $scope.HDWallet.defaultDPath;
     $scope.mnemonicModel = new Modal(document.getElementById('mnemonicModel'));
@@ -53,6 +61,18 @@ var decryptWalletCtrl = function($scope, $sce, walletService) {
                     break;
                 case nodes.nodeTypes.UBQ:
                     $scope.HDWallet.dPath = $scope.HDWallet.hwUbqPath;
+                    break;
+                case nodes.nodeTypes.POA:
+                    $scope.HDWallet.dPath = $scope.HDWallet.ledgerPath;
+                    break;
+                case nodes.nodeTypes.AKROMA:
+                    $scope.HDWallet.dPath = $scope.HDWallet.hwAkromaPath;
+                    break;
+                case nodes.nodeTypes.PIRL:
+                    $scope.HDWallet.dPath = $scope.HDWallet.hwPirlPath;
+                    break;
+                case nodes.nodeTypes.ETHO:
+                    $scope.HDWallet.dPath = $scope.HDWallet.hwEther1Path;
                     break;
                 default:
                     $scope.HDWallet.dPath = $scope.HDWallet.ledgerPath;
@@ -80,14 +100,32 @@ var decryptWalletCtrl = function($scope, $sce, walletService) {
                 case nodes.nodeTypes.UBQ:
                     $scope.HDWallet.dPath = $scope.HDWallet.hwUbqPath;
                     break;
-                case nodes.nodeTypes.RSK:
-                    $scope.HDWallet.dPath = $scope.HDWallet.hwRskPath;
-                    break;
                 case nodes.nodeTypes.ELLA:
                     $scope.HDWallet.dPath = $scope.HDWallet.hwEllaismPath;
                     break;
                 case nodes.nodeTypes.EGEM:
                     $scope.HDWallet.dPath = $scope.HDWallet.hwEtherGemPath;
+                    break;
+                case nodes.nodeTypes.CLO:
+                    $scope.HDWallet.dPath = $scope.HDWallet.hwCallistoPath;
+                    break;
+                case nodes.nodeTypes.ETSC:
+                    $scope.HDWallet.dPath = $scope.HDWallet.hwSocialPath;
+                    break;
+                case nodes.nodeTypes.MUSIC:
+                    $scope.HDWallet.dPath = $scope.HDWallet.hwMusicoinPath;
+                    break;
+                case nodes.nodeTypes.GO:
+                    $scope.HDWallet.dPath = $scope.HDWallet.goPath;
+                    break;
+                case nodes.nodeTypes.EOSC:
+                    $scope.HDWallet.dPath = $scope.HDWallet.hwEOSClassicPath;
+                    break;
+                case nodes.nodeTypes.AKROMA:
+                    $scope.HDWallet.dPath = $scope.HDWallet.hwAkromaPath;
+                    break;
+                case nodes.nodeTypes.ESN:
+                    $scope.HDWallet.dPath = $scope.HDWallet.hwESNetworkPath;
                     break;
                 default:
                     $scope.HDWallet.dPath = $scope.HDWallet.trezorPath;
@@ -114,6 +152,33 @@ var decryptWalletCtrl = function($scope, $sce, walletService) {
                     break;
                 case nodes.nodeTypes.UBQ:
                     $scope.HDWallet.dPath = $scope.HDWallet.hwUbqPath;
+                    break;
+                case nodes.nodeTypes.CLO:
+                    $scope.HDWallet.dPath = $scope.HDWallet.hwCallistoPath;
+                    break;
+                case nodes.nodeTypes.ETSC:
+                    $scope.HDWallet.dPath = $scope.HDWallet.hwSocialPath;
+                    break;
+                case nodes.nodeTypes.MUSIC:
+                    $scope.HDWallet.dPath = $scope.HDWallet.hwMusicoinPath;
+                    break;
+                case nodes.nodeTypes.GO:
+                    $scope.HDWallet.dPath = $scope.HDWallet.goPath;
+                    break;
+                case nodes.nodeTypes.EOSC:
+                    $scope.HDWallet.dPath = $scope.HDWallet.hwEOSClassicPath;
+                    break;
+                case nodes.nodeTypes.AKROMA:
+                    $scope.HDWallet.dPath = $scope.HDWallet.hwAkromaPath;
+                    break;
+                case nodes.nodeTypes.ESN:
+                    $scope.HDWallet.dPath = $scope.HDWallet.hwESNetworkPath;
+                    break;
+                case nodes.nodeTypes.PIRL:
+                    $scope.HDWallet.dPath = $scope.HDWallet.hwPirlPath;
+                    break;
+                case nodes.nodeTypes.ETHO:
+                    $scope.HDWallet.dPath = $scope.HDWallet.hwEther1Path;
                     break;
                 default:
                   $scope.HDWallet.dPath = $scope.HDWallet.defaultDPath;
@@ -363,6 +428,10 @@ var decryptWalletCtrl = function($scope, $sce, walletService) {
     $scope.scanMetamask = function() {
         window.web3.eth.getAccounts(function (err, accounts) {
           if (err) $scope.notifier.danger(err + '. Are you sure you are on a secure (SSL / HTTPS) connection?')
+          if (!accounts.length) {
+            $scope.notifier.danger('Could not read your accounts from MetaMask. Try unlocking it.');
+            return;
+          }
           var address = accounts[0]
           var addressBuffer = Buffer.from(address.slice(2), 'hex');
           var wallet = new Web3Wallet(addressBuffer);

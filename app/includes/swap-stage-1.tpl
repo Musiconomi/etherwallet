@@ -25,7 +25,7 @@
                 <a class="link bity-logo pull-left" href="https://bity.com/af/jshkb37v" target="_blank" rel="noopener noreferrer"><img src="images/logo-bity-white.svg" width="120" height="49" /></a>
             </div>
             <div class="col-sm-6">
-                <a class="link bity-logo pull-right" href="https://home.kyber.network/" target="_blank" rel="noopener noreferrer"><img src="images/logo-kyber.svg" width="200" height="111" /></a>
+                <a class="link bity-logo pull-right" href="https://home.kyber.network/" target="_blank" rel="noopener noreferrer"><img src="images/Kyber-Network-Main-Logo-Inverted.svg" width="200" height="111" /></a>
 
             </div>
         </div>
@@ -98,6 +98,13 @@
     <a ng-click="setFinalPrices()" class="btn btn-info btn-primary">
       <span translate="SWAP_init_CTA"> Let's do this! </span>
     </a>
+    <section class="row">
+      <div class="col-xs-6 col-xs-offset-3" >
+        <h4 style="margin-top: 40px; border: 5px #0b1929">
+          <a href="https://ccswap.myetherwallet.com" > Buy ETH with <img src="images/visa-master.png" width="60" height="30"></a>
+        </h4>
+      </div>
+    </section>
   </div>
 
 </article>
